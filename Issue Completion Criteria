@@ -1,0 +1,37 @@
+# Issue Completion Guide
+
+ts
+type ItemId = string;
+type Feedback = 'exact' | 'close' | 'wrong';
+
+interface PuzzleItem {
+  id: ItemId;
+  label: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+interface PublicPuzzle {
+  number: number;            // e.g. 214
+  date: string;              // ISO date
+  items: PuzzleItem[];       // length 8, shuffled by server
+  hintsAvailable: 3;
+  maxAttempts: 5;
+}
+
+interface RevealedPuzzle {
+  axisName: string;          // "Year of invention"
+  unit?: string;
+  direction: 'asc' | 'desc';
+  results: { id: ItemId; trueRank: number; displayValue: string; funFact: string; sourceUrl: string }[];
+}
+
+Definition of Done (all issues):
+
+[ ] Code merged behind CI: lint, typecheck, unit tests all green
+[ ] No new axe-core violations on affected screens
+[ ] Verified at 320px, 768px and 1280px widths, in light and dark themes
+[ ] Works in latest Chrome, Safari (including iOS) and Firefox
+[ ] Respects prefers-reduced-motion
+[ ] Story or screenshot attached to the PR
+[ ] No answer data (true ranks, axis name) is ever present in client state before reveal
